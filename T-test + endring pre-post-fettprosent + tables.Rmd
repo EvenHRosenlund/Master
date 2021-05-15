@@ -143,7 +143,7 @@ hele.fett.prosent1 <- read_excel("data/TR015_DXA_Ferdig.xlsx", sheet = "Hele_fet
 plot(hele.fett.prosent1)
 
 
-#prøve å finne tall på denna luringen
+#tall på graf
 
 tall.hf <- read_excel("data/TR015_DXA_Ferdig.xlsx", sheet = "Hele_fettmasse") %>%
   select("subject...1", prosent_fett, t1, t2, t3, t4, gruppe) %>%
@@ -229,7 +229,7 @@ vis.fett.prosent1 <- read_excel("data/MR_Bilder_rådata.xlsx", sheet = "Ark3", 
   scale_y_continuous(name = "Visceralt fettvev \n (% endring)")
 plot(vis.fett.prosent1)
 
-#tall
+#tall på graf
 tall.vf <- read_excel("data/MR_Bilder_rådata.xlsx", sheet = "Ark3", na = "Na") %>%
   select(fp, bmi, vicseralt_fett_pre, vicseralt_fett_post, gruppe, hele_vev_fett) %>%
   filter(!is.na(vicseralt_fett_post)) %>%
@@ -288,7 +288,7 @@ int.fett.prosent1 <- read_excel("data/TR015_MR_miri_HH-2-2.xlsx", sheet = "Ark4"
 
   plot(int.fett.prosent1)
   
-  #tall
+  #tall på graf
   tall.if <- read_excel("data/TR015_MR_miri_HH-2-2.xlsx", sheet = "Ark4", na = "NA")%>%
   select(subject,leg, timepoint, intra_fett, prosent_fett) %>%
   group_by(subject, timepoint) %>%
@@ -334,9 +334,6 @@ coef(fit.if)
 ## DXA table
 ```{r,warning = FALSE, echo=FALSE}
 
-
-#KABLE
-
 DXA.Android <- read_excel("TR015_DXA_Ferdig.xlsx", sheet = "Hele_fettmasse", na = "NA") %>%
   select("subject...1", bmi, t1, t2, t4) %>%
   filter(!is.na(t4),
@@ -361,16 +358,6 @@ DXA.Android <- read_excel("TR015_DXA_Ferdig.xlsx", sheet = "Hele_fettmasse", na 
   print()
 
 kable(DXA.Android, caption = "Endring i Total fettmasse DXA, Mean (SD)")
-
-
-#Forsøk på graf ut ifa kable.
-
-
-
-
-
-
-
 
 ```
 
@@ -409,6 +396,7 @@ kable(Midjemål, caption = "Endring i Midjemål, Mean (SD)")
 ```
 
 
+
 ## MR table
 
 ```{r,warning = FALSE, echo=FALSE}
@@ -437,6 +425,7 @@ kable(MR.table.change)
 ## Inermuskulærf fett table.
 
 ```{r, include=FALSE}
+
 even <- read_excel("data/TR015_MR_miri_HH-2-2.xlsx", sheet = "Ark4", na = "NA")%>%
   select(subject,prosent_fett)
 
@@ -461,6 +450,7 @@ IR.table.change <- read_excel("data/TR015_MR_miri_HH-2-2.xlsx", sheet = "Ark4", 
 ```
 
 
+
 ## Tables Midjemål, DXA, MR
 ```{r, warning=FALSE, echo=FALSE}
 
@@ -468,18 +458,6 @@ kable(Midjemål, caption = "**Endring i Midjemål**")
 kable(DXA.Android, caption = "**Endring i Total fettmasse DXA**")
 kable(MR.table.change, caption = "**Endring i Total fettmasse MR**")
 kable(IR.table.change, caption = "**Endring i Intermuskulær fettmasse MR**")
-
-
-# korleis kan eg endre A -> A ≤ 29.9, samma meg gruppe B?
-#rownames(MR.table.change)[rownames(MR.table.change) == "A"] = "A≤29.9"
-#mutate(Gruppe = factor(Gruppe, levels = c("A≤29,9", "B≥30"))) #-blir NA
-
-#korleis kan eg line alle tabels opp etter kvarandre oversiktelig?
-?kable
-?knitr::kable
-?kables
-#row.names	->Logical: whether to include row names. By default, row names are included if rownames(x) is neither NULL nor identical to 1:nrow(x).
-?renam
 
 
 ```
